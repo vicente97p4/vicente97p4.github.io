@@ -1,5 +1,5 @@
-let ERC20_contractAddress = '0x297e0c9fbbb0c24aee21904ec2ccdfb986d266c0';
-let ERC20_abi = 
+let ERC20_contractAddress = '0x87582553f07df80c151a8a830c038ab75c00d122';
+let ERC20_abi =
 [
 	{
 	  "constant": true,
@@ -273,8 +273,8 @@ let ERC20_abi =
 	},
   ];
 
-let friend_contractAddress = '0x90d22ac4c2f3352c8505896eb8a083d3e48185d9';
-let friend_abi =[
+let friend_contractAddress = '0x635bc8a250202d6f081f70a7fb12033593719a36';
+let friend_abi = [
 	{
 		"constant": false,
 		"inputs": [
@@ -334,7 +334,7 @@ function startApp() {
 
   friendContract = web3.eth.contract(friend_abi);
   friends = friendContract.at(friend_contractAddress);
-  
+
   web3.eth.getAccounts(function(e,r){
   	document.getElementById('accountAddr').innerHTML = getLink(r[0]);
   	accountAddress = r[0];
@@ -347,26 +347,26 @@ function getLink(addr) {
 }
 
 function getValue() {
-  getTokenInfo();  
+  getTokenInfo();
   getFriendsList();
 }
 
 function getToken() {
-	simpleWallet.balanceOf(accountAddress, function(e,r){		
+	simpleWallet.balanceOf(accountAddress, function(e,r){
 		document.getElementById('tokenValue').innerHTML =web3.fromWei(r.toString()) + " " + token_symbol;
 	});
 }
 
 function getTokenInfo() {
   simpleWallet.name(function(e,r){
-	token_name = r.toString();	
-	document.getElementById('tokenName').innerHTML = token_name;	
+	token_name = r.toString();
+	document.getElementById('tokenName').innerHTML = token_name;
 	getToken();
   });
-  simpleWallet.symbol(function(e,r){	
+  simpleWallet.symbol(function(e,r){
 	token_symbol = r.toString();
 	document.getElementById('tokenSymbol').innerHTML = token_symbol;
-	document.getElementById('erc20Token').innerHTML = token_symbol;	
+	document.getElementById('erc20Token').innerHTML = token_symbol;
   });
 }
 
@@ -382,7 +382,7 @@ function getFriendsList() {
 function selectFriend() {
 	var friendSelect = document.getElementById("friends_list");
 	var text = friendSelect.options[friendSelect.selectedIndex].text;
-	
+
 	document.getElementById('receiver').value = text;
 
 	simpleWallet.balanceOf(text, function(e,r){
@@ -396,7 +396,7 @@ function sendToken() {
 
 	var real_token = web3.toWei(_token, 'ether');
 
-	console.log("Send "+ _token + " to " + _receiver);	
+	console.log("Send "+ _token + " to " + _receiver);
 
 	simpleWallet.transfer(_receiver, real_token, function(e,r){
 		console.log("Complete!");
@@ -410,5 +410,5 @@ function addFriend() {
 	friends.addFriend(_friend, function(e,r) {
 		console.log("Complete, Add friend.")
 		getFriendsList();
-	}); 
+	});
 }
